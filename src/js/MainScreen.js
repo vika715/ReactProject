@@ -124,11 +124,11 @@ export var MainScreen = React.createClass({
   },
 
   render: function() {
-    if (this.state.token == null){
-      this.authorized();
-    }
     if ((this.state.token != null && this.state.posts == null && !this.state.isError) || this.state.isRefreshing){
       this.requestPostList(this.state.token);
+    }
+    if (this.state.token == null){
+      this.authorized();
     }    
     return(
       <View>
