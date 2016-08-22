@@ -8,8 +8,10 @@ import { ItemList } from './ItemList.js';
 export var PostList = React.createClass( {
   getInitialState: function() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    return { 
-      dataSource: ds.cloneWithRows(this.props.posts)
+    return {
+      posts: this.props.posts,
+      dataSource: ds.cloneWithRows(this.props.posts),
+
     };
   },
  
@@ -30,6 +32,14 @@ export var PostList = React.createClass( {
     );
   },
 
+  componentDidUpdate: function () {
+    if (this.state.posts !== this.props.posts) {
+      this.setState({
+        posts: this.props.posts,
+        dataSource: this.state.dataSource.cloneWithRows(this.props.posts)
+      })
+    }
+  },
   render: function() {
     return (
       <ListView 
